@@ -3,7 +3,6 @@ const initialState = {
   userName: null,
   userToken: null,
 };
-console.log("AAa",initialState);
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
