@@ -1,23 +1,27 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View, Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import HeartIcon from '../../Assets/Icons/Heart';
 import Header from '../../Components/Header';
 import ScreensName from '../../Constants/ScreensName';
-import {
-  addFavourite,
-  RemoveFavourite,
-  searchCharacters,
-} from '../../Redux/Action/ottAction';
+import {addFavourite, RemoveFavourite} from '../../Redux/Action/ottAction';
 import {COLORS, winWidth} from '../../Utils/theams';
 import styles from './styles';
 
-const SearchScreen = props => {
+const FavouriteScreen = props => {
   const dispatch = useDispatch();
 
-  const {charactersList, favouriteList, searchCharacterList} = useSelector(
+  const {charactersList, favouriteList} = useSelector(
     state => state.ottReducer,
   );
+  const [newList, setNewList] = useState([]);
+  useEffect(() => {
+    let newData = [];
+    newData = charactersList.filter(({char_id: id1}) =>
+      favouriteList.some(id2 => id2 === id1),
+    );
+    setNewList(newData);
+  }, [favouriteList]);
 
   const addFav = data => {
     let checkFav, removeFav;
@@ -28,10 +32,6 @@ const SearchScreen = props => {
     } else {
       dispatch(RemoveFavourite(removeFav));
     }
-  };
-
-  const keyStock = txt => {
-    dispatch(searchCharacters(txt));
   };
 
   const renderItem = item => {
@@ -77,22 +77,20 @@ const SearchScreen = props => {
     <View style={styles.container}>
       <Header
         rightIcon={'close'}
-        onTextInput={val => keyStock(val.nativeEvent.text)}
+        headtitle={'Favourites'}
         headtitleColor={COLORS.lightGreen}
         rightView={() => props.navigation.goBack()}
-        typing
       />
-      {searchCharacterList?.length === 0 ? (
+      {newList.length === 0 ? (
         <View style={styles.txtContainer}>
-          <Text style={styles.txtNote}>No character found</Text>
-          <Text style={styles.txtSubNote}>Try Again</Text>
+          <Text style={styles.txtNote}>No Favourites Added</Text>
         </View>
       ) : (
         <FlatList
           style={[styles.container, {paddingTop: 50}]}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          data={searchCharacterList}
+          data={newList}
           renderItem={renderItem}
           keyExtractor={item => item.name}
         />
@@ -100,4 +98,5 @@ const SearchScreen = props => {
     </View>
   );
 };
-export default SearchScreen;
+
+export default FavouriteScreen;

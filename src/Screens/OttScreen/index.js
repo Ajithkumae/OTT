@@ -3,6 +3,7 @@ import {FlatList, Text, TouchableOpacity, View, Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import HeartIcon from '../../Assets/Icons/Heart';
 import Header from '../../Components/Header';
+import ScreensName from '../../Constants/ScreensName';
 import {
   addFavourite,
   getCharacters,
@@ -11,7 +12,7 @@ import {
 import {COLORS, winWidth} from '../../Utils/theams';
 import styles from './styles';
 
-const OttScreen = () => {
+const OttScreen = props => {
   const dispatch = useDispatch();
 
   const {charactersList, favouriteList} = useSelector(
@@ -36,7 +37,15 @@ const OttScreen = () => {
   const renderItem = item => {
     let addedFav = favouriteList.find(ele => ele === item.item.char_id);
     return (
-      <TouchableOpacity style={styles.imgCard}>
+      <TouchableOpacity
+        style={styles.imgCard}
+        onPress={() =>
+          props.navigation.navigate(ScreensName.SELECTEDSCREEN, {
+            data: item.item,
+            favouriteList: favouriteList,
+            charactersList: charactersList,
+          })
+        }>
         <Image
           source={{uri: item.item?.img}}
           style={styles.imageView}
@@ -63,12 +72,17 @@ const OttScreen = () => {
       </TouchableOpacity>
     );
   };
-
   return (
     <View style={styles.container}>
-      <Header />
+      <Header
+        search={() => props.navigation.navigate(ScreensName.SEARCHSCREEN)}
+        rightIcon={'Heart'}
+        headtitle={'The Breaking bad'}
+        rightView={() => props.navigation.navigate(ScreensName.FAVOURITESCREEN)}
+      />
       <FlatList
         style={[styles.container, {paddingTop: 50}]}
+        showsVerticalScrollIndicator={false}
         numColumns={2}
         data={charactersList}
         renderItem={renderItem}

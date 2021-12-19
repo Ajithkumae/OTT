@@ -3,6 +3,7 @@ import {actionTypes} from '../Action/ottAction';
 const initialState = {
   charactersList: null,
   favouriteList: [],
+  searchCharacterList: null,
 };
 const ottReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,6 +11,11 @@ const ottReducer = (state = initialState, action) => {
       return {
         ...state,
         charactersList: action.data,
+      };
+    case actionTypes.SEARCHCHARACTER:
+      return {
+        ...state,
+        searchCharacterList: action.data,
       };
     case actionTypes.ADDFAVOURITE:
       return {

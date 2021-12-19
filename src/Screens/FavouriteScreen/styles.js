@@ -4,7 +4,7 @@ import {COLORS, FONT_FAMILY, FONT_SIZE, winWidth} from '../../Utils/theams';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.darkBlack,
+    backgroundColor: COLORS.black,
   },
   imageView: {
     borderRadius: 5,
@@ -33,17 +33,12 @@ const styles = StyleSheet.create({
   txtNote: {
     color: COLORS.lightGreen,
     fontFamily: FONT_FAMILY.Roboto_Bold,
-    fontSize: FONT_SIZE.FONT_SIZE_24,
-  },
-  txtSubNote: {
-    color: COLORS.white,
-    fontFamily: FONT_FAMILY.Roboto_Thin,
-    fontSize: FONT_SIZE.FONT_SIZE_24,
+    fontSize: FONT_SIZE.FONT_SIZE_31,
   },
   txtContainer: {
     justifyContent: 'center',
-    marginLeft: 20,
-    marginTop: 50,
+    flex: 1,
+    alignItems: 'center',
   },
 });
 

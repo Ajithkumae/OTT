@@ -1,10 +1,11 @@
-import {baseUrl, character} from '../../Service/apiConfig';
+import {baseUrl, character, search} from '../../Service/apiConfig';
 import {ApiCall} from '../../Service/apis';
 
 export const actionTypes = {
   GETCHARACTER: 'GETCHARACTER',
   ADDFAVOURITE: 'ADDFAVOURITE',
   REMOVEFAVOURITE: 'REMOVEFAVOURITE',
+  SEARCHCHARACTER: 'SEARCHCHARACTER',
 };
 
 export const getCharacters = () => {
@@ -14,6 +15,21 @@ export const getCharacters = () => {
       .then(async response => {
         dispatch({
           type: actionTypes.GETCHARACTER,
+          data: response.data,
+        });
+      })
+      .catch(ERROR => {
+        console.log('error', ERROR);
+      });
+  };
+};
+export const searchCharacters = txt => {
+  return async dispatch => {
+    new ApiCall()
+      .getData(baseUrl + search + txt)
+      .then(async response => {
+        dispatch({
+          type: actionTypes.SEARCHCHARACTER,
           data: response.data,
         });
       })

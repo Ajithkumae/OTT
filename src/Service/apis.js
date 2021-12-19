@@ -10,11 +10,10 @@ export class ApiCall {
         url: URL,
       })
         .then(res => {
-          console.log('success', URL, res.data);
           resolve(res);
         })
         .catch(ERROR => {
-          console.log('ERROR', URL, ERROR, ERROR.response.data);
+          console.log('ERROR', URL, ERROR);
           reject(ERROR);
         });
     });

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from '../../Utils/theams';
+import {COLORS, FONT_FAMILY, FONT_SIZE} from '../../Utils/theams';
 
 const styles = StyleSheet.create({
   continer: {
@@ -28,9 +28,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   rightAlingView: {
-    width: 70,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: COLORS.darkBlack,
+  },
+  textInput: {
+    fontFamily: FONT_FAMILY.Roboto_Thin,
+    fontSize: FONT_SIZE.FONT_SIZE_33,
   },
 });
 export default styles;
